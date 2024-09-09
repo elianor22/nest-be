@@ -58,6 +58,20 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+
+## Running migration
+```bash
+# create migration
+$ npm run migration:create --name=create_user
+
+# generate migration
+
+$ npm run migration:generate --name=create_user
+
+# run migration
+$ npm run migration:run
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

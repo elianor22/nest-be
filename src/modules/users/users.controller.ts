@@ -15,7 +15,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { FindUserDto } from './dto/find-user.dto';
 import { Paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
-import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -27,7 +26,6 @@ export class UsersController {
     return await this.usersService.create(createUserDto);
   }
 
-  @Public()
   @Get()
   async findAll(
     @Paginate() params: PaginateQuery,

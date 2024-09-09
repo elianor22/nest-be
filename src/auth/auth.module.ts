@@ -8,15 +8,23 @@ import { DatabaseModule } from 'src/database/database.module';
 import { jwtConstants } from 'src/constants/jwt-constant';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
+import { LocalStrategy } from './strategies/local.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     DatabaseModule,
     UsersModule,
-    JwtModule.register({
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
       global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expires_in },
+      useFactory: async (configService: ConfigService) => ({
+        secret: jwtConstants.secret,
+        signOptions: {
+          expiresIn: configService.get<string>('JWT_EXPIRES_IN'),
+        },
+      }),
     }),
   ],
   controllers: [AuthController],
@@ -27,6 +35,7 @@ import { AuthGuard } from './auth.guard';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    LocalStrategy,
   ],
   exports: [AuthService],
 })

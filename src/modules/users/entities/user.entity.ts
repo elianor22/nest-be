@@ -22,6 +22,10 @@ export class UserEntity {
   @Exclude()
   password: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  @Exclude()
+  refreshToken?: string;
+
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
