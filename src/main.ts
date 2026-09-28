@@ -20,6 +20,7 @@ async function bootstrap() {
   );
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+  console.log('hello world');
   await app.listen(3003);
 }
 bootstrap();
